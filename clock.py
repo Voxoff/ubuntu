@@ -13,14 +13,15 @@ class MainWindow(Gtk.Window):
 
     self.label = Gtk.Label()
     self.box.pack_start(self.label, True, True, 0)
-
+    global starttime
+    starttime = datetime.now()
     # Ini a time here and store it globally
 
   # Displays Timer
   def displayclock(self):
     #  we need to return "True" to ensure the timer continues to run, otherwise it will only run once.
-    datetimenow = str(datetime.now().strftime("%A %H:%M:%S"))
-    self.label.set_label(datetimenow)
+    calctime = datetime.now() - starttime
+    self.label.set_label(str(calctime.seconds) + " Seconds")
     # calc new time minus start time.
     return True
 
