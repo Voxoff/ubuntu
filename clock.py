@@ -1,7 +1,8 @@
-
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 from gi.repository import Gtk, GObject
 from datetime import datetime
+from time import strftime
 
 class MainWindow(Gtk.Window):
   def __init__(self):
@@ -17,7 +18,7 @@ class MainWindow(Gtk.Window):
   def displayclock(self):
     #  putting our datetime into a var and setting our label to the result. 
     #  we need to return "True" to ensure the timer continues to run, otherwise it will only run once.
-    datetimenow = str(datetime.now())
+    datetimenow = str(datetime.now().strftime("%A %H:%M:%S"))
     self.label.set_label(datetimenow)
     return True
 
