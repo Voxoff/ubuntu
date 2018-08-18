@@ -14,19 +14,20 @@ class MainWindow(Gtk.Window):
     self.label = Gtk.Label()
     self.box.pack_start(self.label, True, True, 0)
 
+    # Ini a time here and store it globally
+
   # Displays Timer
   def displayclock(self):
-    #  putting our datetime into a var and setting our label to the result. 
     #  we need to return "True" to ensure the timer continues to run, otherwise it will only run once.
     datetimenow = str(datetime.now().strftime("%A %H:%M:%S"))
     self.label.set_label(datetimenow)
+    # calc new time minus start time.
     return True
 
   # Initialize Timer
   def startclocktimer(self):
-    #  this takes 2 args: (how often to update in millisec, the method to run)
+    #  checks for keypress and mouse
     GObject.timeout_add(1000, self.displayclock)
-
 
 win = MainWindow()
 win.connect("delete-event", Gtk.main_quit)
