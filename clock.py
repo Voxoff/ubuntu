@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from gi.repository import Gtk, GObject
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import strftime
 
 class MainWindow(Gtk.Window):
@@ -15,14 +15,13 @@ class MainWindow(Gtk.Window):
     self.box.pack_start(self.label, True, True, 0)
     global starttime
     starttime = datetime.now()
-    # Ini a time here and store it globally
 
   # Displays Timer
   def displayclock(self):
     #  we need to return "True" to ensure the timer continues to run, otherwise it will only run once.
     calctime = datetime.now() - starttime
-    self.label.set_label(str(calctime.seconds) + " Seconds")
-    # calc new time minus start time.
+    calctime = calctime - timedelta(microseconds = calctime.microseconds)
+    self.label.set_label(calctime.__str__())
     return True
 
   # Initialize Timer
