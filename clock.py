@@ -1,8 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 from gi.repository import Gtk, GObject
 from datetime import datetime, timedelta
-from time import strftime
+import pyxhook
+import time
+
+
 
 class MainWindow(Gtk.Window):
   def __init__(self):
@@ -29,8 +33,27 @@ class MainWindow(Gtk.Window):
     #  checks for keypress and mouse
     GObject.timeout_add(1000, self.displayclock)
 
+
+
 win = MainWindow()
 win.connect("delete-event", Gtk.main_quit)
 win.show_all()
 win.startclocktimer()
 Gtk.main()
+
+def kbevent(event):
+  global running
+  print(event)
+  if event.Ascii == 32:
+    running = False
+
+hookman = pyxhook.HookManager()
+hookman.KeyDown = kbevent
+hookman.HookKeyboard()
+hookman.start()
+
+running = True
+while running:
+  time.sleep(0.1)
+
+hookman.cancel()
